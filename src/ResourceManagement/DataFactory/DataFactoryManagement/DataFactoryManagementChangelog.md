@@ -29,6 +29,13 @@ Release date: 2016.01.20
     * HdfsLinkedService
     * OnPremisesOdbcLinkedService 
 
+## Version
+_Release date:_ 
+
+### Feature Additions
+
+* Added new StorageFormat type JsonFormat type to define datasets whose data is in JSON format. 
+
 ## Version 4.2.0
 Release date: 2015.11.10
 
