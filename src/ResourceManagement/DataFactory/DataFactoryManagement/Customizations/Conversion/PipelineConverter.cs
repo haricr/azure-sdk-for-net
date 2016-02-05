@@ -44,6 +44,11 @@ namespace Microsoft.Azure.Management.DataFactories.Conversion
             IList<Core.Models.Activity> internalActivities =
                 this.ConvertActivitiesToCoreActivities(pipeline.Properties.Activities);
 
+            DatasetConverter datasetConvertor = new DatasetConverter();
+
+            IList<Core.Models.Dataset> internalDatasets =
+                this.ConvertDatasetsToCoreDatasets(pipeline.Properties.Datasets);
+
             Core.Models.Pipeline internalPipeline = new Core.Models.Pipeline()
             {
                 Name = pipeline.Name,
@@ -58,7 +63,8 @@ namespace Microsoft.Azure.Management.DataFactories.Conversion
                     RuntimeInfo = properties.RuntimeInfo, 
                     Start = properties.Start,
                     PipelineMode = properties.PipelineMode,
-                    ExpirationTime = properties.ExpirationTime
+                    ExpirationTime = properties.ExpirationTime,
+                    Datasets = internalDatasets
                 }
             };
 
@@ -83,6 +89,9 @@ namespace Microsoft.Azure.Management.DataFactories.Conversion
             IList<Activity> activities =
                 this.ConvertCoreActivitiesToWrapperActivities(internalPipeline.Properties.Activities);
 
+            IList<Dataset> datasets =
+                this.ConvertCoreDatasetsToWrapperDatasets(internalPipeline.Properties.Datasets);
+
             Pipeline pipeline = new Pipeline()
             {
                 Name = internalPipeline.Name,
@@ -97,7 +106,8 @@ namespace Microsoft.Azure.Management.DataFactories.Conversion
                     RuntimeInfo = properties.RuntimeInfo,
                     Start = properties.Start,
                     ExpirationTime = properties.ExpirationTime,
-                    PipelineMode = properties.PipelineMode
+                    PipelineMode = properties.PipelineMode,
+                    Datasets = datasets
                 }
             };
 
@@ -118,6 +128,20 @@ namespace Microsoft.Azure.Management.DataFactories.Conversion
             {
                 this.ValidateActivity(activity);
             }
+        }
+
+        private IList<Core.Models.Dataset> ConvertDatasetsToCoreDatasets(IList<Dataset> datasets)
+        {
+            Ensure.IsNotNull(datasets, "datasets");
+            DatasetConverter convertor = new DatasetConverter();
+            return datasets.Select(convertor.ToCoreType).ToList();
+        }
+
+        private IList<Dataset> ConvertCoreDatasetsToWrapperDatasets(IList<Core.Models.Dataset> internalDatasets)
+        {
+            Ensure.IsNotNull(internalDatasets, "internalDatasets");
+            DatasetConverter convertor = new DatasetConverter();
+            return internalDatasets.Select(convertor.ToWrapperType).ToList();
         }
 
         private IList<Core.Models.Activity> ConvertActivitiesToCoreActivities(IList<Activity> activities)

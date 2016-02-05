@@ -1,5 +1,16 @@
 ﻿For additional details on features, see the full [Azure Data Factory Release Notes](https://azure.microsoft.com/en-us/documentation/articles/data-factory-release-notes). 
 
+## Version
+Release date:
+
+### Feature Additions
+
+* The following properties are added to PipelineProperties  
+    * PipelineMode
+    * PipelineState
+    * ExpirationTime
+    * Datasets
+
 ## Version 4.4.0
 Release date: 2016.01.28
 

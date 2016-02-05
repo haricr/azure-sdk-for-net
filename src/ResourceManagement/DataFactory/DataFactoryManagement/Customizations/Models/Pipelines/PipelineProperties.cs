@@ -98,6 +98,16 @@ namespace Microsoft.Azure.Management.DataFactories.Models
         /// one of <see cref="PipelineMode"/>.
         /// </summary>
         public string PipelineMode { get; set; }
+
+        /// <summary>
+        /// Optional. List of Datasets definitions to be used by activity
+        /// defined in the pipeline. This can be property can be used to
+        /// define datasets that are specific to pipeline only and not defined
+        /// at the datafactory. Datasets defined at pipeline can only be used
+        /// by that Pipeline and cannot be shared. Must be of <see
+        /// cref="Microsoft.Azure.Management.DataFactories.Models.Dataset"/>.
+        /// </summary>
+        public IList<Dataset> Datasets { get; set; }
         
         public PipelineProperties()
         {
